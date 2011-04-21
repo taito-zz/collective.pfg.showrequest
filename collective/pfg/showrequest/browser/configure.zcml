@@ -1,0 +1,62 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.pfg.showrequest">
+
+  <browser:page
+      name="edit-show-request"
+      for="Products.PloneFormGen.interfaces.IPloneFormGenForm"
+      template="templates/edit_show_request.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:viewletManager
+    name="collective.pfg.showrequest.manager"
+    provides="collective.pfg.showrequest.interfaces.IEditShowRequestViewletManager"
+    permission="cmf.ModifyPortalContent"
+    class="plone.app.viewletmanager.manager.OrderedViewletManager"
+    />
+
+  <!-- Miscellaneous -->
+  <browser:page
+      name="show-request"
+      for="*"
+      class=".miscellaneous.Miscellaneous"
+      permission="zope2.View"
+      attribute="show_request"
+      />
+
+  <browser:page
+      name="not-show-request"
+      for="*"
+      class=".miscellaneous.Miscellaneous"
+      permission="zope2.View"
+      attribute="not_show_request"
+      />
+
+  <browser:page
+      name="can-show-request"
+      for="*"
+      class=".miscellaneous.Miscellaneous"
+      permission="zope2.View"
+      attribute="can_show_request"
+      />
+
+  <browser:page
+      name="can-hide-request"
+      for="*"
+      class=".miscellaneous.Miscellaneous"
+      permission="zope2.View"
+      attribute="can_hide_request"
+      />
+
+  <!-- Viewlets -->
+  <browser:viewlet
+    name="collective.pfg.showrequest"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+    class=".viewlet.ShowRequestViewlet"
+    permission="zope2.View"
+    for="collective.pfg.showrequest.interfaces.IShowRequest"
+    />
+
+</configure>

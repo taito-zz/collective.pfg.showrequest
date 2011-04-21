@@ -1,0 +1,42 @@
+Initial Imports
+===============
+    >>> from mock import Mock
+    >>> from zope.interface import alsoProvides, noLongerProvides
+    >>> from zope.publisher.browser import TestRequest
+
+
+Miscellaneous
+-------------
+    >>> from Products.PloneFormGen.interfaces import IPloneFormGenForm
+    >>> from collective.pfg.showrequest.browser.miscellaneous import Miscellaneous
+    >>> from collective.pfg.showrequest.interfaces import IShowRequest
+    >>> context = Mock()
+    >>> context.absolute_url.return_value = 'context_url'
+    >>> m = Miscellaneous(context, TestRequest())
+    >>> m.can_show_request()
+    False
+    >>> m.can_hide_request()
+    False
+    >>> m.show_request()
+    >>> IShowRequest.providedBy(context)
+    False
+    >>> alsoProvides(context, IPloneFormGenForm)
+    >>> m = Miscellaneous(context, TestRequest())
+    >>> m.show_request()
+    'context_url/@@edit-show-request'
+    >>> IShowRequest.providedBy(context)
+    True
+    >>> m.can_show_request()
+    False
+    >>> m.can_hide_request()
+    True
+
+    >>> m.not_show_request()
+    'context_url'
+    >>> IShowRequest.providedBy(context)
+    False
+    >>> m.can_show_request()
+    True
+    >>> m.can_hide_request()
+    False
+    

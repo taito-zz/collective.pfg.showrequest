@@ -1,0 +1,123 @@
+Functional test with PloneFormGen
+==================================
+
+Initial imports and defines.
+-----------------------------
+    >>> portal_url = portal.absolute_url()
+    >>> form01_url = portal.form01.absolute_url()
+    >>> form02_url = portal.form02.absolute_url()
+
+Setting up.
+-----------
+    >>> try:
+    ...     from Testing.testbrowser import Browser
+    ... except ImportError:
+    ...     from Products.Five.testbrowser import Browser
+    >>> browser = Browser()
+
+For debugging.
+--------------
+    >>> browser.handleErrors = True
+    >>> portal.error_log._ignored_exceptions = ()
+
+Turn off portlets.
+------------------
+    >>> from zope.component import getUtility, getMultiAdapter
+    >>> from plone.portlets.interfaces import IPortletManager
+    >>> from plone.portlets.interfaces import IPortletAssignmentMapping
+
+    >>> column = getUtility(IPortletManager, name=u"plone.leftcolumn")
+    >>> assignable = getMultiAdapter((portal, column), IPortletAssignmentMapping)
+    >>> for name in assignable.keys():
+    ...     del assignable[name]
+
+    >>> column = getUtility(IPortletManager, name=u"plone.rightcolumn")
+    >>> assignable = getMultiAdapter((portal, column), IPortletAssignmentMapping)
+    >>> for name in assignable.keys():
+    ...     del assignable[name]
+
+Check that Show Request is not there
+------------------------------------
+    >>> browser.open(portal_url)
+    >>> 'id="show_request"' in browser.contents
+    False
+    >>> 'id="not_show_request"' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    False
+
+Go to Form01
+------------
+    >>> browser.open(form01_url)
+    >>> browser.getControl(name="replyto").value = 'reply@reply.com'
+    >>> browser.getControl(name="topic").value = 'Test Subject'
+    >>> browser.getControl(name="comments").value = 'Test Comments.'
+
+Submit and go to Form02
+------------------------
+    >>> try:
+    ...     browser.getControl('Submit').click()
+    ... except:
+    ...     print portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+Log in as the portal owner and show request
+--------------------------------------------
+    >>> browser.open(portal_url)
+    >>> from Products.PloneTestCase.setup import portal_owner, default_password
+    >>> browser.open(portal_url + '/login_form?came_from=' + portal_url)
+    >>> browser.getControl(name='__ac_name').value = portal_owner
+    >>> browser.getControl(name='__ac_password').value = default_password
+
+    >>> try:
+    ...     browser.getControl(name='submit').click()
+    ... except:
+    ...     print portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+    >>> 'id="show_request"' in browser.contents
+    False
+    >>> 'id="not_show_request"' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    False
+
+
+Go to Form02
+------------
+    >>> browser.open(form02_url)
+
+Show Request
+------------
+    >>> 'id="show_request"' in browser.contents
+    True
+    >>> 'id="not_show_request"' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    False
+    >>> browser.getLink(id="show_request").click()
+    >>> 'id="show_request"' in browser.contents
+    False
+
+#Got to View
+#-----------
+#    >>> browser.getLink('View').click()
+#    >>> 'id="not_show_request"' in browser.contents
+#    True
+#    >>> 'Edit Show Request' in browser.contents
+#    True
+
+Log out and got from Fomr01 to Form02
+--------------------------------------
+    >>> browser.open(form01_url)
+    >>> browser.getControl(name="replyto").value = 'reply@reply.com'
+    >>> browser.getControl(name="topic").value = 'Test Subject'
+    >>> browser.getControl(name="comments").value = 'Test Comments.'
+
+    >>> try:
+    ...     browser.getControl('Submit').click()
+    ... except:
+    ...     print portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+    >>> open('/tmp/testbrowser.html', 'w').write(browser.contents)

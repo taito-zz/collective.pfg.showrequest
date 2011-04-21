@@ -1,0 +1,11 @@
+<div id="show-request" i18n:domain="collective.pfg.showrequest">
+    <blockquote>
+        <dl>
+<!--            <tal:block repeat="field python:here.displayInputs(request)">-->
+            <tal:block repeat="field view/all_fields">
+                <dt tal:content="field/label" />
+                <dd tal:content="structure field/value" />
+            </tal:block>
+        </dl>
+    </blockquote>
+</div>

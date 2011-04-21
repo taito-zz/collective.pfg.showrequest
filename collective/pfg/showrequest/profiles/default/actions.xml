@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <object name="object_buttons" meta_type="CMF Action Category">
+  <object name="show_request" meta_type="CMF Action" i18n:domain="collective.pfg.payment">
+   <property name="title" i18n:translate="">Show Request</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@show-request</property>
+   <property
+      name="available_expr">python: object.restrictedTraverse("can-show-request")()</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="not_show_request" meta_type="CMF Action" i18n:domain="collective.pfg.payment">
+   <property name="title" i18n:translate="">Not Show Request</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@not-show-request</property>
+   <property
+      name="available_expr">python: object.restrictedTraverse("can-hide-request")()</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="object" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="edit_show_request" meta_type="CMF Action" i18n:domain="collective.cart">
+   <property name="title" i18n:translate="">Edit Show Request</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object_url}/@@edit-show-request</property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python: object.restrictedTraverse("can-hide-request")()</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+</object>
