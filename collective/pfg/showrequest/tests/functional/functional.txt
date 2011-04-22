@@ -133,3 +133,7 @@ Log out and got from Fomr01 to Form02
     ... except:
     ...     print portal.error_log.getLogEntries()[0]['tb_text']
     ...     import pdb; pdb.set_trace()
+    >>> '<dd>Test Subject</dd>' in browser.contents
+    True
+    >>> '<dd>reply@reply.com</dd>' in browser.contents
+    True

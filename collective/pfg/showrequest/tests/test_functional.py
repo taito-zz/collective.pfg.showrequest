@@ -35,7 +35,8 @@ class TestSetup(base.FunctionalTestCase):
         form02 = self.portal.form02
         wftool.doActionFor(form02, "publish")
         form02.reindexObject()
-
+        del form02['thank-you']
+        del form02['mailer']
 
 
 def test_suite():
