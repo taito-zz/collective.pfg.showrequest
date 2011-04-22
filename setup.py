@@ -15,7 +15,7 @@ long_description = (
 
 setup(name='collective.pfg.showrequest',
       version=version,
-      description="Show contents of request like previous form inputs in viewlet.",
+      description="Show previous form input values in viewlet for PloneFormGen.",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -26,7 +26,7 @@ setup(name='collective.pfg.showrequest',
       keywords='',
       author='Taito Horiuchi',
       author_email='taito.horiuchi@gmail.com',
-      url='http://svn.plone.org/svn/collective/',
+      url='http://pypi.python.org/pypi/collective.pfg.showrequest',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', 'collective.pfg'],
@@ -34,6 +34,7 @@ setup(name='collective.pfg.showrequest',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'Products.PloneFormGen',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
