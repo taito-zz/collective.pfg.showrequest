@@ -95,17 +95,31 @@ Show Request
     False
     >>> 'Edit Show Request' in browser.contents
     False
-    >>> browser.getLink(id="show_request").click()
+
+    >>> try:
+    ...     browser.getLink(id="show_request").click()
+    ... except:
+    ...     print portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
     >>> 'id="show_request"' in browser.contents
     False
+    >>> 'Edit Show Request' in browser.contents
+    True
 
-#Got to View
-#-----------
-#    >>> browser.getLink('View').click()
-#    >>> 'id="not_show_request"' in browser.contents
-#    True
-#    >>> 'Edit Show Request' in browser.contents
-#    True
+Input some field name
+---------------------
+    >>> "topic" in browser.contents
+    False
+    >>> browser.getControl(name="form.button.UpdateFields").click()
+    >>> browser.getControl(name="fields").value = 'topic'
+    >>> browser.getControl(name="form.button.UpdateFields").click()
+    >>> "topic" in browser.contents
+    True
+    >>> browser.getControl(name="fields").value = 'topic\r\nreplyto'
+    >>> browser.getControl(name="form.button.UpdateFields").click()
+    >>> "topic\r\nreplyto" in browser.contents
+    True
 
 Log out and got from Fomr01 to Form02
 --------------------------------------
@@ -119,5 +133,3 @@ Log out and got from Fomr01 to Form02
     ... except:
     ...     print portal.error_log.getLogEntries()[0]['tb_text']
     ...     import pdb; pdb.set_trace()
-
-    >>> open('/tmp/testbrowser.html', 'w').write(browser.contents)

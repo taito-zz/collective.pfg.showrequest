@@ -1,0 +1,21 @@
+<div id="showrequest-setting">
+  <form method = "post"
+        tal:attributes="action view/current_url">
+    <div class="field">
+      <label i18n:translate="">Fields</label>
+      <div class="formHelp" i18n:translate="">
+        Input field ids to show the input results from the previous form line by line.
+      </div>
+      <textarea name="fields"
+                id="fields"
+                cols="20"
+                rows="5"
+                tal:content="view/fields" />
+    </div>
+    <input type="submit"
+           class="standalone"
+           value="Update"
+           i18n:attributes="value"
+           name="form.button.UpdateFields" />
+  </form>
+</div>

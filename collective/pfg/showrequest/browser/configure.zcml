@@ -59,4 +59,12 @@
     for="collective.pfg.showrequest.interfaces.IShowRequest"
     />
 
+  <browser:viewlet
+    name="collective.pfg.showrequest.setting"
+    manager="collective.pfg.showrequest.interfaces.IEditShowRequestViewletManager"
+    class=".viewlet.SettingViewlet"
+    permission="cmf.ModifyPortalContent"
+    for="collective.pfg.showrequest.interfaces.IShowRequest"
+    />
+
 </configure>
