@@ -4,10 +4,8 @@ from zope.component import getMultiAdapter
 from Acquisition import aq_inner
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
-#from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen import implementedOrProvidedBy
-#from Products.PloneFormGen.interfaces import IPloneFormGenThanksPage
 
 
 class ShowRequestViewlet(ViewletBase):
@@ -15,8 +13,6 @@ class ShowRequestViewlet(ViewletBase):
     index = render = ViewPageTemplateFile("viewlets/show_request.pt")
 
     def all_fields(self):
-#        thanks = [obj for obj in self.context.objectValues() if IPloneFormGenThanksPage.providedBy(obj)]
-#        if thanks:
         context = aq_inner(self.context)
         fields = IAnnotations(context).get('collective.pfg.showrequest.fields')
         if fields is not None:
@@ -32,13 +28,11 @@ class ShowRequestViewlet(ViewletBase):
             res = []
             for obj in sorted_objs:
                 value = obj.htmlValue(self.request)
-#                if self.includeEmpties or (value and (value != 'No Input')):
                 res.append( {
                     'label' : obj.fgField.widget.label,
                     'value' : value, 
                     } )
             return res
-#            return thanks[0].displayInputs(self.request)
 
     def displayInputs(self, request):
         """ Returns sequence of dicts {'label':fieldlabel, 'value':input}
