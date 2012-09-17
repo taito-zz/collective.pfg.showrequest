@@ -6,19 +6,16 @@ collective.pfg.showrequest shows field labels and values on the next form genera
 Currently tested with
 ---------------------
 
-* Plone-3.3.5
+* Plone-4.2.1
+* Products.PloneFormGen-1.7.2
 
-* Plone-4.1b2
-
-* Products.PloneFormGen-1.6.0
-
-Sometimes, you might need to chain forms to create wizard like forms where 
+Sometimes, you might need to chain forms to create wizard like forms where
 you want to show field input results from the previous form.
 This package serves for this need by simply registering viewlet to plone.app.layout.viewlets.interfaces.IAboveContentBody interface.
 
 How To
 ------
-Once you have quickinstalled collective.pfg.showrequest, 
+Once you have quickinstalled collective.pfg.showrequest,
 go to the Form Folder (*Form2*) where you want to show the field results.
 
 There is **Show Request** button under Actions, so click it.
