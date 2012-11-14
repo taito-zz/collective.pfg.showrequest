@@ -1,11 +1,11 @@
+from Acquisition import aq_inner
+from Products.Archetypes.interfaces.field import IField
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.PloneFormGen import implementedOrProvidedBy
 from persistent.list import PersistentList
+from plone.app.layout.viewlets.common import ViewletBase
 from zope.annotation import IAnnotations
 from zope.component import getMultiAdapter
-from Acquisition import aq_inner
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.layout.viewlets.common import ViewletBase
-from Products.Archetypes.interfaces.field import IField
-from Products.PloneFormGen import implementedOrProvidedBy
 
 
 class ShowRequestViewlet(ViewletBase):
@@ -22,16 +22,16 @@ class ShowRequestViewlet(ViewletBase):
                 ) and obj.id in fields
             ]
             sorted_objs = []
-            objs  =dict(objs)
+            objs = dict(objs)
             for field in fields:
                 sorted_objs.append(objs[field])
             res = []
             for obj in sorted_objs:
                 value = obj.htmlValue(self.request)
-                res.append( {
-                    'label' : obj.fgField.widget.label,
-                    'value' : value, 
-                    } )
+                res.append({
+                    'label': obj.fgField.widget.label,
+                    'value': value,
+                })
             return res
 
     def displayInputs(self, request):
@@ -43,7 +43,7 @@ class ShowRequestViewlet(ViewletBase):
             if (not implementedOrProvidedBy(IField, obj) or obj.isLabel()):
                 # if field list hasn't been specified explicitly, exclude server side fields
                 if self.showAll and obj.getServerSide():
-                    continue 
+                    continue
                 myFields.append(obj)
         # Now, determine which fields we show
         if self.showAll:
@@ -64,13 +64,12 @@ class ShowRequestViewlet(ViewletBase):
         for obj in sFields:
             value = obj.htmlValue(request)
             if self.includeEmpties or (value and (value != 'No Input')):
-                res.append( {
-                    'label' : obj.fgField.widget.label,
-                    'value' : value, 
-                    } )
-            
-        return res
+                res.append({
+                    'label': obj.fgField.widget.label,
+                    'value': value,
+                })
 
+        return res
 
 
 class SettingViewlet(ViewletBase):
@@ -80,8 +79,7 @@ class SettingViewlet(ViewletBase):
     @property
     def current_url(self):
         """Returns current url"""
-        context_state = getMultiAdapter((self.context, self.request),
-                                            name=u'plone_context_state')
+        context_state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
         return context_state.current_page_url()
 
     def update(self):
@@ -95,6 +93,6 @@ class SettingViewlet(ViewletBase):
 
     def fields(self):
         context = aq_inner(self.context)
-        fields =  IAnnotations(context).get('collective.pfg.showrequest.fields')
+        fields = IAnnotations(context).get('collective.pfg.showrequest.fields')
         if fields is not None:
             return '\r\n'.join(fields)

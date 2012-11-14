@@ -1,11 +1,9 @@
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
-import doctest
-from Testing import ZopeTestCase as ztc
 from Products.CMFCore.utils import getToolByName
+from Testing import ZopeTestCase as ztc
 from collective.pfg.showrequest.tests import base
+
+import doctest
+import unittest
 
 
 class TestSetup(base.FunctionalTestCase):
@@ -23,7 +21,7 @@ class TestSetup(base.FunctionalTestCase):
             thanksPageOverride='traverse_to:string:form02',
         )
         form01 = self.portal.form01
-        form01.actionAdapter=()
+        form01.actionAdapter = ()
         wftool.doActionFor(form01, "publish")
         form01.reindexObject()
         self.portal.invokeFactory(
@@ -46,9 +44,4 @@ def test_suite():
             'tests/functional/functional.txt',
             package='collective.pfg.showrequest',
             test_class=TestSetup,
-            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
-
-            ])
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
+            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS), ])

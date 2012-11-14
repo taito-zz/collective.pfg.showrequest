@@ -1,7 +1,3 @@
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
 from Products.CMFCore.utils import getToolByName
 from collective.pfg.showrequest.tests.base import TestCase
 
@@ -43,8 +39,6 @@ class TestSetup(TestCase):
         self.assertEqual(('Modify portal content',), action.getProperty('permissions'))
         self.assertEqual(True, action.getProperty('visible'))
 
-
-
     ## Uninstalling
     def test_uninstall(self):
         self.installer.uninstallProducts(['collective.pfg.showrequest'])
@@ -52,9 +46,3 @@ class TestSetup(TestCase):
         self.failIf(hasattr(self.actions.object_buttons, 'show_request'))
         self.failIf(hasattr(self.actions.object_buttons, 'not_show_request'))
         self.failIf(hasattr(self.actions.object, 'edit_show_request'))
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSetup))
-    return suite
