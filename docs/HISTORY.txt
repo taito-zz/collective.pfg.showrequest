@@ -20,4 +20,3 @@ Changelog
 ------------------
 
 - Initial release
-
