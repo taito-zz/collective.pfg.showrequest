@@ -1,0 +1,82 @@
+Check that Show Request is not there::
+
+    >>> browser.open('/')
+    >>> 'Show Request' in browser.contents
+    False
+    >>> 'id="not_show_request"' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    False
+
+Go to Form01::
+
+    >>> browser.open('/form01')
+    >>> browser.getControl(name="replyto").value = 'reply@reply.com'
+    >>> browser.getControl(name="topic").value = 'Test Subject'
+    >>> browser.getControl(name="comments").value = 'Test Comments.'
+
+Submit and go to Form02::
+
+    >>> browser.getControl('Submit').click()
+
+Log in as Mabager and show request::
+
+    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+    >>> browser.open('/')
+
+    >>> '>Show Request' in browser.contents
+    False
+    >>> 'id="not_show_request"' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    False
+
+Go to Form02::
+
+    >>> browser.open('/form02')
+
+Show Request::
+
+    >>> '>Show Request' in browser.contents
+    True
+    >>> 'id="not_show_request"' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    False
+
+    >>> browser.getLink('Show Request').click()
+
+    >>> '>Show Request' in browser.contents
+    False
+    >>> 'Edit Show Request' in browser.contents
+    True
+
+Input some field name::
+
+    >>> "topic" in browser.contents
+    False
+    >>> browser.getControl(name="form.button.UpdateFields").click()
+    >>> browser.getControl(name="fields").value = 'topic'
+    >>> browser.getControl(name="form.button.UpdateFields").click()
+    >>> "topic" in browser.contents
+    True
+    >>> browser.getControl(name="fields").value = 'topic\r\nreplyto'
+    >>> browser.getControl(name="form.button.UpdateFields").click()
+    >>> "topic\r\nreplyto" in browser.contents
+    True
+
+Log out and got from Fomr01 to Form02::
+
+    >>> browser.open('/form01')
+    >>> browser.getControl(name="replyto").value = 'reply@reply.com'
+    >>> browser.getControl(name="topic").value = 'Test Subject'
+    >>> browser.getControl(name="comments").value = 'Test Comments.'
+
+    >>> browser.getControl('Submit').click()
+
+    >>> '<dd>Test Subject</dd>' in browser.contents
+    True
+    >>> '<dd>reply@reply.com</dd>' in browser.contents
+    True
+
+    # >>> browser.openBrowser()

@@ -6,8 +6,8 @@ collective.pfg.showrequest shows field labels and values on the next form genera
 Currently tested with
 ---------------------
 
-* Plone-4.2.2
-* Products.PloneFormGen-1.7.4
+* Plone-4.2.3
+* Products.PloneFormGen-1.7.6
 
 Sometimes, you might need to chain forms to create wizard like forms where
 you want to show field input results from the previous form.

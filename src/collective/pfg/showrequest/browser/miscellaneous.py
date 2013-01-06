@@ -11,7 +11,7 @@ class Miscellaneous(BrowserView):
         context = aq_inner(self.context)
         if IPloneFormGenForm.providedBy(context):
             alsoProvides(context, IShowRequest)
-            url = '%s/@@edit-show-request' % context.absolute_url()
+            url = '{}/@@edit-show-request'.format(context.absolute_url())
             return self.request.response.redirect(url)
 
     def not_show_request(self):

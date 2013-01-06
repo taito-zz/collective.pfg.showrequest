@@ -1,10 +1,11 @@
 from Products.CMFCore.utils import getToolByName
-from collective.pfg.showrequest.tests.base import TestCase
+from collective.pfg.showrequest.tests.base import IntegrationTestCase
 
 
-class TestSetup(TestCase):
+class TestSetup(IntegrationTestCase):
 
-    def afterSetUp(self):
+    def setUp(self):
+        self.portal = self.layer['portal']
         self.installer = getToolByName(self.portal, 'portal_quickinstaller')
         self.actions = getToolByName(self.portal, 'portal_actions')
 

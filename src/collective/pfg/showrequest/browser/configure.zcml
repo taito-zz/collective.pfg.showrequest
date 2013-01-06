@@ -38,7 +38,7 @@
       name="can-show-request"
       for="*"
       class=".miscellaneous.Miscellaneous"
-      permission="zope2.View"
+      permission="cmf.ModifyPortalContent"
       attribute="can_show_request"
       />
 
