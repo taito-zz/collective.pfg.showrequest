@@ -13,7 +13,7 @@ long_description = (
 
 setup(
     name='collective.pfg.showrequest',
-    version='0.4',
+    version='0.5',
     description="Show previous form input values in viewlet for PloneFormGen.",
     long_description=long_description,
     classifiers=[
