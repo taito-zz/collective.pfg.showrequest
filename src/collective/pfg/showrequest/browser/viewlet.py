@@ -1,7 +1,6 @@
 from Acquisition import aq_inner
 from Products.Archetypes.interfaces.field import IField
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.PloneFormGen import implementedOrProvidedBy
 from persistent.list import PersistentList
 from plone.app.layout.viewlets.common import ViewletBase
 from zope.annotation import IAnnotations
@@ -18,7 +17,7 @@ class ShowRequestViewlet(ViewletBase):
         if fields is not None:
             objs = [
                 (obj.id, obj) for obj in context._getFieldObjects() if (
-                    not implementedOrProvidedBy(IField, obj) or obj.isLabel()
+                    not IField.providedBy(obj) or obj.isLabel()
                 ) and obj.id in fields
             ]
             sorted_objs = []
@@ -40,7 +39,7 @@ class ShowRequestViewlet(ViewletBase):
         # get a list of all candidate fields
         myFields = []
         for obj in self.aq_parent._getFieldObjects():
-            if (not implementedOrProvidedBy(IField, obj) or obj.isLabel()):
+            if (not IField.providedBy(obj) or obj.isLabel()):
                 # if field list hasn't been specified explicitly, exclude server side fields
                 if self.showAll and obj.getServerSide():
                     continue
