@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5.1 (2013-03-xx)
+0.5.1 (2013-03-23)
 ------------------
 
 - Updated to work with Products.PloneFormGen-1.7.7. [taito]
