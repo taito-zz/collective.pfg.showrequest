@@ -6,8 +6,8 @@ collective.pfg.showrequest shows field labels and values on the next form genera
 Currently tested with
 ---------------------
 
-* Plone-4.2.5
-* Products.PloneFormGen-1.7.7
+* Plone-4.3
+* Products.PloneFormGen-1.7.8
 * Python-2.7.x
 
 Sometimes, you might need to chain forms to create wizard like forms where
